@@ -45,5 +45,42 @@ def stop_server(add_client_button, start_button, stop_button):
         start_button.config(state=tk.NORMAL)
         stop_button.config(state=tk.DISABLED)
 
+def broadcast(message, sender_socket):
+    """Send message to all connected clients except the sender."""
+    for client_socket in clients.keys():
+        if client_socket != sender_socket:
+            try:
+                client_socket.send(message)
+            except:
+                client_socket.close()
+                del clients[client_socket]
+
+
+def handle_client(client_socket):
+    """Handle messages from a single client."""
+    try:
+        # Get the username from the client
+        username = client_socket.recv(1024).decode('utf-8')
+        clients[client_socket] = username
+        print(f"{username} has joined the chat!")
+        broadcast(f"{username} has joined the chat!".encode('utf-8'), client_socket)
+
+        # Receive and broadcast messages
+        while True:
+            message = client_socket.recv(1024)
+            if message:
+                formatted_message = f"{clients[client_socket]}: {message.decode('utf-8')}"
+                print(formatted_message)
+                broadcast(formatted_message.encode('utf-8'), client_socket)
+            else:
+                break
+    except:
+        pass
+    finally:
+        print(f"{clients[client_socket]} has left the chat.")
+        broadcast(f"{clients[client_socket]} has left the chat.".encode('utf-8'), client_socket)
+        client_socket.close()
+        del clients[client_socket]
+    
 if __name__ == "__main__":
     server_gui()

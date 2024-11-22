@@ -20,9 +20,9 @@ This is a simple Python-based chat application with a server-client architecture
 
  ## Setup and Usage
 ### Clone or Download the Repository
-  git clone https://github.com/your-repo/chat-app.git
+  git clone [https://github.com/your-repo/chat-app.git](https://github.com/asianman78607/Akshit_Chat_Tkinter_Socket.git)
   
-  cd chat-app
+  cd Akshit_Chat_Tkinter_Socket-main
 ### Run the Server Start the server by running:
   1. python server.py
   2. Start Server: Click this to start the server.

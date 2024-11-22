@@ -35,7 +35,32 @@ class ChatClient:
 
         # Start thread to receive messages
         threading.Thread(target=self.receive_messages, daemon=True).start()
+    def receive_messages(self):
+        """Receive messages from the server and display them in the chat window."""
+        while True:
+            try:
+                message = self.client_socket.recv(1024).decode('utf-8')
+                self.display_message(message)
+            except:
+                self.display_message("Connection to the server was lost.")
+                break
 
+    def send_message(self, event=None):
+        """Send a message to the server."""
+        message = self.message_entry.get()
+        if message.strip():
+            # Display the message in the chat window with "You:"
+            self.display_message(f"You: {message}")
+            # Send the message to the server
+            self.client_socket.send(message.encode('utf-8'))
+            self.message_entry.delete(0, tk.END)
+
+    def display_message(self, message):
+        """Display a received or sent message in the chat window."""
+        self.chat_window.config(state='normal')
+        self.chat_window.insert(tk.END, message + "\n")
+        self.chat_window.config(state='disabled')
+        self.chat_window.yview(tk.END)
 
 
 if __name__ == "__main__":

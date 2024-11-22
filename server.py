@@ -32,7 +32,18 @@ def start_server(add_client_button, start_button, stop_button):
     threading.Thread(target=accept_clients, args=(server_socket,), daemon=True).start()
 
 
+def stop_server(add_client_button, start_button, stop_button):
+    """Stop the chat server."""
+    global server_socket, server_running
+    if server_running:
+        server_running = False
+        server_socket.close()
+        print("Server stopped.")
 
+        # Enable/Disable buttons
+        add_client_button.config(state=tk.DISABLED)
+        start_button.config(state=tk.NORMAL)
+        stop_button.config(state=tk.DISABLED)
 
 if __name__ == "__main__":
     server_gui()

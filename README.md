@@ -21,6 +21,7 @@ This is a simple Python-based chat application with a server-client architecture
  ## Setup and Usage
 ### Clone or Download the Repository
   git clone https://github.com/your-repo/chat-app.git
+  
   cd chat-app
 ### Run the Server Start the server by running:
   1. python server.py

@@ -10,14 +10,14 @@ This is a simple Python-based chat application with a server-client architecture
 
 
 
-#Prerequisites
+## Prerequisites
   Python 3.6 or higher
   Install tkinter (usually pre-installed with Python)
   Ensure both server_with_launcher.py and client_gui.py are in the same directory.
 
 
- #Setup and Usage
-##Clone or Download the Repository
+ ## Setup and Usage
+### Clone or Download the Repository
   git clone https://github.com/your-repo/chat-app.git
   cd chat-app
   Run the Server Start the server by running:

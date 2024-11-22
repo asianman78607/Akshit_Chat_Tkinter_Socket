@@ -4,8 +4,10 @@ Chat application Assignment with GUI
 This is a simple Python-based chat application with a server-client architecture. The server manages connections and broadcasts messages to all clients. The client has a graphical user interface (GUI) for sending and receiving messages.
 
 .
-├── client_gui.py          # Client-side GUI for chatting
+├── client_gui.py          # Client-side GUI for chatting 
+
 ├── server_with_launcher.py # Server-side GUI with client launcher
+
 └── README.md              # Project documentation
 
 

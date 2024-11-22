@@ -7,7 +7,9 @@ This is a simple Python-based chat application with a server-client architecture
 
 ### **1. Project Structure**
 
-. ├── client_gui.py # Client-side GUI for chatting ├── server_with_launcher.py # Server-side GUI with client launcher └── README.md # Project documentation
+├── client_gui.py # Client-side GUI for chatting 
+├── server_with_launcher.py # Server-side GUI with client launcher 
+└── README.md # Project documentation
 
 yaml
 Copy code

@@ -61,7 +61,11 @@ class ChatClient:
         self.chat_window.insert(tk.END, message + "\n")
         self.chat_window.config(state='disabled')
         self.chat_window.yview(tk.END)
-
+        
+def main():
+    root = tk.Tk()
+    app = ChatClient(root)
+    root.mainloop()
 
 if __name__ == "__main__":
     main()

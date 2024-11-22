@@ -18,21 +18,17 @@ This is a simple Python-based chat application with a server-client architecture
 
 
  # Setup and Usage
-###Clone or Download the Repository
+##Clone or Download the Repository
 
 ##bash
-###git clone https://github.com/your-repo/chat-app.git
-###cd chat-app
-###Run the Server Start the server by running:
+  git clone https://github.com/your-repo/chat-app.git
+  cd chat-app
+  Run the Server Start the server by running:
+  1. python server_with_launcher.py
+  2. Start Server: Click this to start the server.
+  3. + Add Client: Once the server is started, click this to open new client instances.
+  4. Chat as a Client
+       4.1 Enter your username when the client starts.
+       4.2 Use the chat window to send and receive messages.
+  5. + Stop Server: Stops the server and disables client creation.
 
-##bash
-###python server_with_launcher.py
-###Server Interface
-
-Start Server: Click this to start the server.
-###+ Add Client: Once the server is started, click this to open new client instances.
-###Stop Server: Stops the server and disables client creation.
-###Chat as a Client
-
-###Enter your username when the client starts.
-###Use the chat window to send and receive messages.

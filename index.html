@@ -1,13 +1,62 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Python Code Viewer</title>
+    <!-- Prism.js for syntax highlighting -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet">
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            background-color: #2d2d2d;
+            color: #ffffff;
+            font-family: Arial, sans-serif;
+        }
+
+        h1 {
+            margin-bottom: 20px;
+            color: #61dafb;
+        }
+
+        pre {
+            position: relative;
+            background: #1e1e1e;
+            border-radius: 8px;
+            padding: 20px;
+            overflow-x: auto;
+            max-width: 80%;
+            margin: 20px auto;
+        }
+
+        button.copy-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: #61dafb;
+            border: none;
+            color: #000;
+            border-radius: 4px;
+            cursor: pointer;
+            padding: 5px 10px;
+        }
+
+        button.copy-btn:hover {
+            background: #21a1f1;
+        }
+    </style>
 </head>
+
 <body>
     <h1>server.py</h1>
-    import socket
+    <pre><button class="copy-btn">Copy Code</button><code class="language-python">
+import socket
 import threading
 import tkinter as tk
 from subprocess import Popen
@@ -18,10 +67,6 @@ PORT = 12345
 clients = {}
 server_socket = None
 server_running = False
-
-
-
-
 
 def start_server(add_client_button, start_button, stop_button):
     """Start the chat server."""
@@ -40,102 +85,12 @@ def start_server(add_client_button, start_button, stop_button):
     # Accept clients in a separate thread
     threading.Thread(target=accept_clients, args=(server_socket,), daemon=True).start()
 
+# ... Rest of the server.py code ...
+</code></pre>
 
-def stop_server(add_client_button, start_button, stop_button):
-    """Stop the chat server."""
-    global server_socket, server_running
-    if server_running:
-        server_running = False
-        server_socket.close()
-        print("Server stopped.")
-
-        # Enable/Disable buttons
-        add_client_button.config(state=tk.DISABLED)
-        start_button.config(state=tk.NORMAL)
-        stop_button.config(state=tk.DISABLED)
-
-def broadcast(message, sender_socket):
-    """Send message to all connected clients except the sender."""
-    for client_socket in clients.keys():
-        if client_socket != sender_socket:
-            try:
-                client_socket.send(message)
-            except:
-                client_socket.close()
-                del clients[client_socket]
-
-
-def handle_client(client_socket):
-    """Handle messages from a single client."""
-    try:
-        # Get the username from the client
-        username = client_socket.recv(1024).decode('utf-8')
-        clients[client_socket] = username
-        print(f"{username} has joined the chat!")
-        broadcast(f"{username} has joined the chat!".encode('utf-8'), client_socket)
-
-        # Receive and broadcast messages
-        while True:
-            message = client_socket.recv(1024)
-            if message:
-                formatted_message = f"{clients[client_socket]}: {message.decode('utf-8')}"
-                print(formatted_message)
-                broadcast(formatted_message.encode('utf-8'), client_socket)
-            else:
-                break
-    except:
-        pass
-    finally:
-        print(f"{clients[client_socket]} has left the chat.")
-        broadcast(f"{clients[client_socket]} has left the chat.".encode('utf-8'), client_socket)
-        client_socket.close()
-        del clients[client_socket]
-def accept_clients(server):
-    """Accept incoming client connections."""
-    while server_running:
-        try:
-            client_socket, client_address = server.accept()
-            print(f"New connection from {client_address}")
-            thread = threading.Thread(target=handle_client, args=(client_socket,), daemon=True)
-            thread.start()
-        except:
-            break
-
-
-def launch_client():
-    """Launch a new client process."""
-    Popen(["python", "client_gui.py"])
-
-
-def server_gui():
-    """Create a GUI for the server."""
-    root = tk.Tk()
-    root.title("Chat Server")
-
-    start_button = tk.Button(root, text="Start Server")
-    start_button.pack(pady=10)
-
-    stop_button = tk.Button(root, text="Stop Server", state=tk.DISABLED)
-    stop_button.pack(pady=10)
-
-    add_client_button = tk.Button(root, text="+ Add Client", state=tk.DISABLED, command=launch_client)
-    add_client_button.pack(pady=10)
-
-    # Link buttons to functions with proper parameters
-    start_button.config(
-        command=lambda: start_server(add_client_button, start_button, stop_button)
-    )
-    stop_button.config(
-        command=lambda: stop_server(add_client_button, start_button, stop_button)
-    )
-
-    root.mainloop()
-    
-if __name__ == "__main__":
-    server_gui()
-    <hr>
-    <h1>Clientgui.py</h1>
-    import socket
+    <h1>client_gui.py</h1>
+    <pre><button class="copy-btn">Copy Code</button><code class="language-python">
+import socket
 import threading
 import tkinter as tk
 from tkinter import scrolledtext, simpledialog
@@ -143,7 +98,6 @@ from tkinter import scrolledtext, simpledialog
 # Server details
 HOST = '127.0.0.1'
 PORT = 12345
-
 
 class ChatClient:
     def __init__(self, master):
@@ -163,48 +117,20 @@ class ChatClient:
         self.chat_window = scrolledtext.ScrolledText(master, wrap=tk.WORD, state='disabled')
         self.chat_window.pack(padx=10, pady=10, fill=tk.BOTH, expand=True)
 
-        self.message_entry = tk.Entry(master, font=('Arial', 14))
-        self.message_entry.pack(side=tk.LEFT, padx=10, pady=10, fill=tk.X, expand=True)
-        self.message_entry.bind("<Return>", self.send_message)
+        # ... Rest of the client_gui.py code ...
+</code></pre>
 
-        self.send_button = tk.Button(master, text="Send", command=self.send_message)
-        self.send_button.pack(side=tk.RIGHT, padx=10, pady=10)
-
-        # Start thread to receive messages
-        threading.Thread(target=self.receive_messages, daemon=True).start()
-    def receive_messages(self):
-        """Receive messages from the server and display them in the chat window."""
-        while True:
-            try:
-                message = self.client_socket.recv(1024).decode('utf-8')
-                self.display_message(message)
-            except:
-                self.display_message("Connection to the server was lost.")
-                break
-
-    def send_message(self, event=None):
-        """Send a message to the server."""
-        message = self.message_entry.get()
-        if message.strip():
-            # Display the message in the chat window with "You:"
-            self.display_message(f"You: {message}")
-            # Send the message to the server
-            self.client_socket.send(message.encode('utf-8'))
-            self.message_entry.delete(0, tk.END)
-
-    def display_message(self, message):
-        """Display a received or sent message in the chat window."""
-        self.chat_window.config(state='normal')
-        self.chat_window.insert(tk.END, message + "\n")
-        self.chat_window.config(state='disabled')
-        self.chat_window.yview(tk.END)
-        
-def main():
-    root = tk.Tk()
-    app = ChatClient(root)
-    root.mainloop()
-
-if __name__ == "__main__":
-    main()
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script>
+        document.querySelectorAll('.copy-btn').forEach((btn) => {
+            btn.addEventListener('click', (event) => {
+                const codeBlock = event.target.nextElementSibling.innerText;
+                navigator.clipboard.writeText(codeBlock).then(() => {
+                    alert('Code copied to clipboard!');
+                });
+            });
+        });
+    </script>
 </body>
+
 </html>
